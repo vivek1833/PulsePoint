@@ -9,5 +9,4 @@ public class PulsePointApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PulsePointApplication.class, args);
 	}
-
 }
