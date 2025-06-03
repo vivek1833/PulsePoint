@@ -3,6 +3,7 @@ package com.PulsePoint.PulsePoint.Controllers;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +19,17 @@ import com.PulsePoint.PulsePoint.Services.PatientService;
 @RestController
 @RequestMapping("/api/patient")
 public class PatientController {
-    
-    private final PatientService patientService;
 
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
-    }
+    @Autowired
+    PatientService patientService;
 
     /*
      * Get all patients
      */
     @GetMapping("/all")
     public ResponseEntity<?> getPatients() {
-        try {
-            List<Users> patients = patientService.getPatients();
-            return ResponseEntity.status(HttpStatus.OK).body(patients);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage()); 
-        }
+        List<Users> patients = patientService.getPatients();
+        return ResponseEntity.status(HttpStatus.OK).body(patients);
     }
 
     /*
@@ -43,12 +37,8 @@ public class PatientController {
      */
     @GetMapping("")
     public ResponseEntity<?> getPatientById(@RequestParam UUID id) {
-        try {
-            Users user_patient = patientService.getPatientById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(user_patient);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage()); 
-        }
+        Users user_patient = patientService.getPatientById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user_patient);
     }
 
     /*
@@ -56,11 +46,7 @@ public class PatientController {
      */
     @PostMapping("/create")
     public ResponseEntity<?> createPatient(@RequestBody Users user) {
-        try {
-            Users newPatient = patientService.createPatient(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body(newPatient);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        Users newPatient = patientService.createPatient(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPatient);
     }
 }

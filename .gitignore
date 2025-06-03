@@ -32,4 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 
+### Environment Files ###
+src/main/resources/env.properties
+
 pom.xml

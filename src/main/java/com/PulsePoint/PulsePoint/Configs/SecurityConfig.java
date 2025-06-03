@@ -25,15 +25,14 @@ public class SecurityConfig {
 
 	@Autowired
 	private JwtFilter jwtFilter;
-	
+
 	@Bean
 	public AuthenticationProvider authProvider() {
-		DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(userDetailsService);
 		provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
 		return provider;
 	}
-	
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
