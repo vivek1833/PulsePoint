@@ -1,0 +1,867 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Login and Register Pages */
+.login-container,
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #f0f2f5;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(45deg, #4e54c8, #8f94fb);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+  z-index: 0;
+}
+
+.login-form,
+.register-form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 1;
+}
+
+.login-form h1,
+.register-form h1 {
+  color: #1a1a1a;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.login-form p,
+.register-form p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: white;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4e54c8;
+  box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.1);
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #e1e1e1;
+  border-radius: 4px;
+}
+
+.forgot-password {
+  color: #4e54c8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.sign-in-btn,
+.register-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: #4e54c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.sign-in-btn:hover,
+.register-btn:hover {
+  background: #3c4099;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(78, 84, 200, 0.2);
+}
+
+.auth-links {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.auth-links a {
+  color: #4e54c8;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+/* Home Page */
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.header {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 2rem;
+}
+
+.header h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-and-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-bar {
+  flex: 1;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.add-patient-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.add-patient-btn:hover {
+  background-color: #45a049;
+}
+
+/* Table Styles */
+.patients-list {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 2rem 2rem;
+  padding: 2rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.list-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.page-size-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-size-selector label {
+  color: #666;
+}
+
+.page-size-selector select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  background-color: #f8f9fa;
+}
+
+th:hover {
+  background-color: #e9ecef;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Status badges */
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.status.stable {
+  background-color: #28a745;
+  color: white;
+}
+
+.status.critical {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status.recovering {
+  background-color: #ffc107;
+  color: #000;
+}
+
+/* View Details Button */
+.view-details-btn {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+}
+
+.view-details-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.pagination-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.page-info {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  margin: 1.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.close-btn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #f3f4f6;
+  color: #1a1a1a;
+}
+
+.modal-body {
+  margin-bottom: 1.5rem;
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+  color: #4a5568;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1e1e1;
+}
+
+.modal-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-btn.primary {
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+}
+
+.modal-btn.primary:hover {
+  background-color: #3c4099;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(78, 84, 200, 0.1);
+}
+
+.modal-btn.secondary {
+  background-color: darkorange;
+  color: white;
+  border: 1.5px solid #e1e1e1;
+}
+
+.modal-btn.secondary:hover {
+  background-color: red;
+  border-color: #d1d5db;
+}
+
+/* Patient Details Modal */
+.patient-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.patient-details p {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.patient-details p:last-child {
+  border-bottom: none;
+}
+
+.patient-details strong {
+  min-width: 150px;
+  color: #1a1a1a;
+}
+
+.patient-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.edit-patient-btn,
+.delete-patient-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-patient-btn {
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+}
+
+.edit-patient-btn:hover {
+  background-color: #3c4099;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(78, 84, 200, 0.1);
+}
+
+.delete-patient-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+}
+
+.delete-patient-btn:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .login-container::before {
+    width: 100%;
+    height: 45%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  }
+
+  .login-form,
+  .register-form {
+    margin: 1rem;
+    padding: 2rem;
+  }
+
+  .modal-content {
+    margin: 1rem;
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-btn,
+  .edit-patient-btn,
+  .delete-patient-btn {
+    width: 100%;
+  }
+
+  .patient-details strong {
+    min-width: 120px;
+  }
+
+  .header {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .search-and-add {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .patients-list {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .list-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .page-size-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  th,
+  td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .view-details-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pagination-btn {
+    width: 100%;
+  }
+
+  .footer {
+    padding: 2rem 0;
+  }
+
+  .footer-content {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+}
+
+/* Loading Component */
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 3rem 0;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.footer-section p {
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #007bff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+/* Error Page */
+.error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-content {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #4e54c8, #8f94fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-title {
+  font-size: 2.5rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: #718096;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.error-btn {
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.error-btn:first-child {
+  background: linear-gradient(45deg, #4e54c8, #8f94fb);
+  color: white;
+}
+
+.error-btn:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+}
+
+.error-btn.secondary {
+  background: white;
+  color: #4e54c8;
+  border: 2px solid #4e54c8;
+}
+
+.error-btn.secondary:hover {
+  background: #4e54c8;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+}
+
+@media (max-width: 768px) {
+  .error-container {
+    padding: 1rem;
+  }
+
+  .error-content {
+    padding: 2rem;
+  }
+
+  .error-code {
+    font-size: 6rem;
+  }
+
+  .error-title {
+    font-size: 2rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .error-actions {
+    flex-direction: column;
+  }
+
+  .error-btn {
+    width: 100%;
+  }
+}
