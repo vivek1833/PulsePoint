@@ -1,11 +1,12 @@
 import axios from "axios";
 import API_URL from "../utils/api";
 
-const register = async (firstName, lastName, email, password, confirmPassword) => {
+const register = async (firstName, lastName, email, username, password, confirmPassword) => {
     const response = await axios.post(API_URL + "/register", {
         firstName,
         lastName,
         email,
+        username,
         password,
         confirmPassword
     });

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/global.css";
 
 import { register } from "../services/user";
+import Loading from "../components/common/Loading";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const Register = () => {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,15 +34,17 @@ const Register = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await register(
         formData.firstName,
         formData.lastName,
         formData.email,
+        formData.email,
         formData.password,
         formData.confirmPassword
       );
-      if (response.status === 200) {
+      if (response.status === 201) {
         navigate("/login");
       } else {
         setError("Registration failed. Please try again.");
@@ -48,7 +52,13 @@ const Register = () => {
     } catch (err) {
       setError("Registration failed. Please try again.");
     }
+
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="register-container">

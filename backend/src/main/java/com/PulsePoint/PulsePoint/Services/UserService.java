@@ -1,5 +1,7 @@
 package com.PulsePoint.PulsePoint.Services;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,12 @@ public class UserService {
         user.setType("STAFF");
         emailService.sendEmail(user.getEmail(), "Welcome to PulsePoint",
                 "Welcome to PulsePoint, Please login to the system. Thanks for registering.");
-        return repo.save(user);
+        Users savedUser = repo.save(user);
+        savedUser.setUsername(user.getUsername());
+        savedUser.setActive(true);
+        savedUser.setCreatedAt(new Date(System.currentTimeMillis()));
+        savedUser.setUpdatedAt(new Date(System.currentTimeMillis()));
+        return savedUser;
     }
 
     public String login(Users user) {
