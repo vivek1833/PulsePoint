@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PulsePoint.PulsePoint.DTO.otpDTO;
 import com.PulsePoint.PulsePoint.Models.Users;
 import com.PulsePoint.PulsePoint.Services.UserService;
 
@@ -27,5 +28,17 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody Users user) {
         String response = userService.login(user);
         return ResponseEntity.status(HttpStatus.OK).body(response); 
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtp(@RequestBody otpDTO otpDTO) {
+        String response = userService.verifyOtp(otpDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/resend-otp")
+    public ResponseEntity<String> resendOtp(@RequestBody otpDTO otpDTO) {
+        String response = userService.resendOtp(otpDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

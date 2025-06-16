@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Error from './pages/Error';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import OTPVerification from './pages/OTPVerification';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify-otp" element={<OTPVerification />} />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<Error />} />
       </Routes>

@@ -11,6 +11,11 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +66,7 @@ const Login = () => {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={formData.password}
@@ -72,11 +77,8 @@ const Login = () => {
         </div>
 
         <div className="remember-me">
-          <input type="checkbox" id="remember" />
-          <label htmlFor="remember">Remember me</label>
-          <a href="/forgot-password" className="forgot-password">
-            Forgot password?
-          </a>
+          <input type="checkbox" id="showPassword" onChange={togglePasswordVisibility} />
+          <label htmlFor="showPassword">Show password</label>
         </div>
 
         <button type="submit" className="sign-in-btn">

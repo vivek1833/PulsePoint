@@ -39,6 +39,18 @@ body {
   z-index: 0;
 }
 
+.register-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(45deg, #4e54c8, #8f94fb, #4e54c8);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+  z-index: 0;
+}
+
 .login-form,
 .register-form {
   background: white;
@@ -49,6 +61,8 @@ body {
   max-width: 400px;
   position: relative;
   z-index: 1;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 .login-form h1,
@@ -864,4 +878,60 @@ tbody tr:hover {
   .error-btn {
     width: 100%;
   }
+}
+
+/* OTP Verification Styles */
+.otp-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.otp-container input {
+  width: 3rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.2s;
+}
+
+.otp-container input:focus {
+  border-color: #4e54c8;
+  box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.1);
+  outline: none;
+}
+
+.timer-container {
+  text-align: center;
+  margin: 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.resend-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #4e54c8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.2s;
+}
+
+.resend-btn:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.resend-btn:disabled {
+  color: #999;
+  cursor: not-allowed;
 }

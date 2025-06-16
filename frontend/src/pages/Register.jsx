@@ -45,7 +45,7 @@ const Register = () => {
         formData.confirmPassword
       );
       if (response.status === 201) {
-        navigate("/login");
+        navigate("/verify-otp", { state: { email: formData.email } });
       } else {
         setError("Registration failed. Please try again.");
       }

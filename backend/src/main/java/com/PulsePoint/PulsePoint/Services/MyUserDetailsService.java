@@ -26,8 +26,14 @@ public class MyUserDetailsService implements UserDetailsService {
 	if (user==null) {
 		System.out.println("User 404");
 		throw new UsernameNotFoundException("User 404");
+	} 
+
+	if(user.getActive()==false) {
+		System.out.println("User not active");
+		throw new UsernameNotFoundException("User not active");
 	}
-		 return new UserPrincipal(user);
+
+	return new UserPrincipal(user);
 	}
 
 }

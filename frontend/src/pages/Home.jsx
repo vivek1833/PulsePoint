@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/global.css";
 
 import {
@@ -11,6 +12,7 @@ import Loading from "../components/common/Loading";
 import Footer from "../components/common/Footer";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -49,7 +51,9 @@ const Home = () => {
       (response) => {
         setPatients(response.data);
       }
-    );
+    ).catch((error) => {
+      navigate("/login");
+    });
     setLoading(false);
   };
 
