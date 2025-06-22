@@ -16,6 +16,7 @@ PulsePoint is a modern web application built with Spring Boot and React. It prov
 - [Backend](#backend)
 - [API Documentation](#api-documentation)
 - [Environment Variables](#environment-variables)
+- [Dockerization](#dockerization)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -25,6 +26,7 @@ PulsePoint is a modern web application built with Spring Boot and React. It prov
 - RESTful API endpoints with Spring Data REST
 - Secure email service integration
 - PostgreSQL database integration
+- Redis integration
 - Responsive web interface
 - Protected routes and API endpoints
 
@@ -46,6 +48,7 @@ PulsePoint is a modern web application built with Spring Boot and React. It prov
 - PostgreSQL
 - JWT Authentication
 - Spring Mail
+- Redis
 - Lombok
 - Maven
 
@@ -58,6 +61,7 @@ PulsePoint is a modern web application built with Spring Boot and React. It prov
 - npm (v8.x or higher)
 - PostgreSQL (v13 or higher)
 - Maven
+- Docker & Docker Compose
 
 ### Installation
 
@@ -101,7 +105,7 @@ spring.mail.password=your_email_password
 Frontend (`.env`):
 
 ```
-REACT_APP_API_URL=http://localhost:8080/api
+REACT_APP_API_URL=http://localhost:8080
 ```
 
 5. Start the applications
@@ -163,6 +167,7 @@ The backend is built with Spring Boot and provides:
 - JWT-based authentication
 - PostgreSQL database integration
 - Email service integration
+- Redis integration
 - Spring Security for endpoint protection
 - JPA for database operations
 
@@ -196,3 +201,28 @@ spring.mail.password=
 ```
 REACT_APP_API_URL=
 ```
+
+## Dockerization
+
+This project is fully dockerized. You can run the entire stack (frontend, backend, PostgreSQL, Redis) using Docker Compose.
+
+### Dockerfile Notes
+
+- **Frontend Dockerfile** should use `EXPOSE 80` (not 8090). Nginx inside the container listens on port 80 by default.
+- **docker-compose.yml** should map frontend service as `8090:80` so you access the UI at [http://localhost:8090](http://localhost:8090).
+- **Backend** is mapped as `8080:8080`.
+- **PostgreSQL** is mapped as `5433:5432` (host:container).
+- **Redis** is mapped as `6379:6379`.
+
+### How to Run
+
+1. Make sure Docker and Docker Compose are installed.
+2. From the project root, run:
+   ```bash
+   docker-compose up --build
+   ```
+3. Access the services:
+   - **Frontend (UI):** [http://localhost:8090](http://localhost:8090)
+   - **Backend (API):** [http://localhost:8080](http://localhost:8080)
+   - **PostgreSQL:** Host port 5433 (for database tools)
+   - **Redis:** Host port 6379

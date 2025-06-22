@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: pulsepoint_postgres
+    environment:
+      POSTGRES_DB: pulsepoint
+      POSTGRES_USER: pulseuser
+      POSTGRES_PASSWORD: pulsepass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - pulsepoint
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: pulsepoint_backend
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/pulsepoint
+      DB_USERNAME: pulseuser
+      DB_PASSWORD: pulsepass
+      mail.username: your_username
+      mail.password: your_password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - pulsepoint
+
+  redis:
+    image: redis:latest
+    container_name: pulsepoint_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - pulsepoint
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: pulsepoint_frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    ports:
+      - "8090:80"
+    depends_on:
+      - backend
+    networks:
+      - pulsepoint
+
+volumes:
+  pgdata:
+
+networks:
+  pulsepoint:
+    driver: bridge
