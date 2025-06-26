@@ -1,6 +1,8 @@
 import axios from "axios";
 import API_URL from "../utils/api";
 
+const PATIENT_URL = API_URL + "/patient";
+
 // Get all patients
 const getPatients = async (
   pageNumber = 0,
@@ -14,8 +16,8 @@ const getPatients = async (
   };
 
   const response = await axios.get(
-    API_URL +
-      `/patient?pageNumber=${pageNumber}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortDirection=${sortDirection}`,
+    PATIENT_URL +
+      `?pageNumber=${pageNumber}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortDirection=${sortDirection}`,
     { headers }
   );
   return response;
@@ -28,7 +30,7 @@ const getPatientById = async (id) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const response = await axios.get(API_URL + `/patient/${id}`, { headers });
+  const response = await axios.get(PATIENT_URL + `/${id}`, { headers });
   return response;
 };
 
@@ -39,7 +41,7 @@ const createPatient = async (patient) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const response = await axios.post(API_URL + "/patient", patient, { headers });
+  const response = await axios.post(PATIENT_URL, patient, { headers });
   return response;
 };
 
@@ -50,7 +52,7 @@ const updatePatient = async (id, patient) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const response = await axios.put(API_URL + `/patient/${id}`, patient, {
+  const response = await axios.put(PATIENT_URL + `/${id}`, patient, {
     headers,
   });
   return response;
@@ -63,7 +65,7 @@ const deletePatient = async (id) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const response = await axios.delete(API_URL + `/patient/${id}`, { headers });
+  const response = await axios.delete(PATIENT_URL + `/${id}`, { headers });
   return response;
 };
 export {

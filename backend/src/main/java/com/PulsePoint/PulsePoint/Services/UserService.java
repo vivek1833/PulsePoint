@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.PulsePoint.PulsePoint.DTO.otpDTO;
 import com.PulsePoint.PulsePoint.Models.Users;
@@ -53,6 +54,7 @@ public class UserService {
         Users savedUser = repo.save(user);
         savedUser.setUsername(user.getUsername());
         savedUser.setActive(false);
+        savedUser.setIsLoggedIn(false);
         savedUser.setCreatedAt(new Date(System.currentTimeMillis()));
         savedUser.setUpdatedAt(new Date(System.currentTimeMillis()));
 
@@ -64,7 +66,12 @@ public class UserService {
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
         if (auth.isAuthenticated()) {
-            return jwtService.generateToken(user.getUsername());
+            String token = jwtService.generateToken(user.getUsername());
+            Users loggedInUser = repo.findByUsername(user.getUsername());
+            System.out.println("Logged in user: " + loggedInUser);
+            loggedInUser.setIsLoggedIn(true);
+            repo.save(loggedInUser);
+            return token;
         }
         return null;
     }
@@ -94,5 +101,23 @@ public class UserService {
         redisService.saveOtp(otpDTO.getEmail(), newOtp, 5);
         sendOtp(otpDTO.getEmail());
         return "OTP resent";
+    }
+
+    public Users getLoggedInUserDetails() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Users user = repo.findByUsername(username);
+        return user;
+    }
+
+    public String logout() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Users user = repo.findByUsername(username);
+        user.setIsLoggedIn(false);
+        repo.save(user);
+        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.clearContext();
+        return "Logged out";
     }
 }

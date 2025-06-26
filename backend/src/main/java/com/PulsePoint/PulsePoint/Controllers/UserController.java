@@ -3,6 +3,7 @@ package com.PulsePoint.PulsePoint.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,9 @@ import com.PulsePoint.PulsePoint.Models.Users;
 import com.PulsePoint.PulsePoint.Services.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -39,6 +41,18 @@ public class UserController {
     @PostMapping("/resend-otp")
     public ResponseEntity<String> resendOtp(@RequestBody otpDTO otpDTO) {
         String response = userService.resendOtp(otpDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<?> getLoggedInUserDetails() {
+        Users response = userService.getLoggedInUserDetails();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        String response = userService.logout();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

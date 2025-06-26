@@ -1,6 +1,8 @@
 import axios from "axios";
 import API_URL from "../utils/api";
 
+const USER_URL = API_URL + "/user";
+
 const register = async (
   firstName,
   lastName,
@@ -9,7 +11,7 @@ const register = async (
   password,
   confirmPassword
 ) => {
-  const response = await axios.post(API_URL + "/register", {
+  const response = await axios.post(USER_URL + "/register", {
     firstName,
     lastName,
     email,
@@ -21,7 +23,7 @@ const register = async (
 };
 
 const login = async (username, password) => {
-  const response = await axios.post(API_URL + "/login", {
+  const response = await axios.post(USER_URL + "/login", {
     username,
     password,
   });
@@ -29,7 +31,7 @@ const login = async (username, password) => {
 };
 
 const verifyOTP = async (email, otp) => {
-  const response = await axios.post(API_URL + "/verify-otp", {
+  const response = await axios.post(USER_URL + "/verify-otp", {
     email,
     otp,
   });
@@ -37,10 +39,29 @@ const verifyOTP = async (email, otp) => {
 };
 
 const resendOTP = async (email) => {
-  const response = await axios.post(API_URL + "/resend-otp", {
+  const response = await axios.post(USER_URL + "/resend-otp", {
     email,
   });
   return response;
 };
 
-export { register, login, verifyOTP, resendOTP };
+const getLoggedInUserDetails = async () => {
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await axios.get(USER_URL + "/details", { headers });
+
+  return response;
+};
+
+const logout = async () => {
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await axios.post(USER_URL + "/logout", {}, { headers });
+  return response;
+};
+
+export { register, login, verifyOTP, resendOTP, getLoggedInUserDetails, logout };

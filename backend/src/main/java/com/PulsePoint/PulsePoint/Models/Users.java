@@ -4,6 +4,7 @@ import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,5 @@ public class Users {
     private Boolean active;
     private Date createdAt;
     private Date updatedAt;
+    private Boolean isLoggedIn;
 }

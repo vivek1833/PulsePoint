@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/global.css";
 
@@ -8,6 +8,7 @@ import {
   deletePatient,
   updatePatient,
 } from "../services/patient";
+import { getLoggedInUserDetails, logout } from "../services/user";
 import Loading from "../components/common/Loading";
 import Footer from "../components/common/Footer";
 
@@ -38,22 +39,44 @@ const Home = () => {
   });
   const [editMode, setEditMode] = useState(false);
   const [editedPatient, setEditedPatient] = useState(null);
+  const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
     fetchPatients();
+    getLoggedInUserDetails()
+      .then((res) => setUser(res.data))
+      .catch(() => navigate("/login"));
     setLoading(false);
   }, [currentPage, pageSize, sortField, sortDirection]);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
   const fetchPatients = () => {
     setLoading(true);
-    getPatients(currentPage, pageSize, sortField, sortDirection).then(
-      (response) => {
+    getPatients(currentPage, pageSize, sortField, sortDirection)
+      .then((response) => {
         setPatients(response.data);
-      }
-    ).catch((error) => {
-      navigate("/login");
-    });
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
     setLoading(false);
   };
 
@@ -178,6 +201,17 @@ const Home = () => {
     return sortDirection === "asc" ? "🔼" : "🔽";
   };
 
+  const handleProfile = () => {
+    navigate("/my-profile");
+    setDropdownOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -186,19 +220,53 @@ const Home = () => {
     <div className="home-container">
       <div className="header">
         <h1>Hospital Admin Portal</h1>
-        <div className="search-and-add">
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search by name, diagnosis, or room number..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <button className="add-patient-btn" onClick={handleAddPatient}>
-            Add New Patient
-          </button>
+        <div className="user-menu-container">
+          {user && (
+            <div ref={dropdownRef} className="user-menu-wrapper">
+              <div
+                className="user-menu-trigger"
+                onClick={() => setDropdownOpen((open) => !open)}>
+                <svg
+                  height="36"
+                  width="36"
+                  viewBox="0 0 36 36"
+                  className="user-avatar">
+                  <circle cx="18" cy="12" r="7" fill="#bbb" />
+                  <ellipse cx="18" cy="27" rx="10" ry="7" fill="#bbb" />
+                </svg>
+                <span className="user-name">
+                  {user.firstName} {user.lastName}
+                </span>
+              </div>
+              {dropdownOpen && (
+                <div className="user-dropdown">
+                  <div className="user-dropdown-item" onClick={handleProfile}>
+                    Profile
+                  </div>
+                  <div
+                    className="user-dropdown-item logout"
+                    onClick={handleLogout}>
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
+      </div>
+
+      <div className="search-and-add">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by name, diagnosis, or room number..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <button className="add-patient-btn" onClick={handleAddPatient}>
+          Add New Patient
+        </button>
       </div>
 
       <div className="patients-list">
