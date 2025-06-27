@@ -120,4 +120,36 @@ public class UserService {
         SecurityContextHolder.clearContext();
         return "Logged out";
     }
+
+    public Users update(Users user) {
+        Users existing = repo.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (user.getUsername() != null) {
+            existing.setUsername(user.getUsername());
+        }
+
+        if (user.getEmail() != null) {
+            existing.setEmail(user.getEmail());
+        }
+
+        if (user.getType() != null) {
+            existing.setType(user.getType());
+        }
+
+        if (user.getPassword() != null) {
+            existing.setPassword(encoder.encode(user.getPassword()));
+        }
+
+        if(user.getCreatedAt() != null) {
+            existing.setCreatedAt(user.getCreatedAt());
+        }
+
+        existing.setUpdatedAt(new Date(System.currentTimeMillis()));
+        existing.setIsLoggedIn(true);
+        existing.setFirstName(user.getFirstName());
+        existing.setLastName(user.getLastName());
+        return repo.save(existing);
+    }
+
 }

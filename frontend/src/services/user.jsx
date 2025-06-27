@@ -50,7 +50,7 @@ const getLoggedInUserDetails = async () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  const response = await axios.get(USER_URL + "/details", { headers });
+  const response = await axios.get(USER_URL + "/", { headers });
 
   return response;
 };
@@ -64,4 +64,13 @@ const logout = async () => {
   return response;
 };
 
-export { register, login, verifyOTP, resendOTP, getLoggedInUserDetails, logout };
+const updateUser = async (data) => {
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  const response = await axios.post(USER_URL + "/", data, { headers });
+  return response;
+};
+
+export { register, login, verifyOTP, resendOTP, getLoggedInUserDetails, logout, updateUser };

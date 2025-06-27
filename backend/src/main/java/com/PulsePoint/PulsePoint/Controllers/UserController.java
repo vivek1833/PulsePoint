@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/details")
+    @GetMapping("/")
     public ResponseEntity<?> getLoggedInUserDetails() {
         Users response = userService.getLoggedInUserDetails();
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -54,5 +54,15 @@ public class UserController {
     public ResponseEntity<String> logout() {
         String response = userService.logout();
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<?> update(@RequestBody Users user) {
+        try {
+            Users response = userService.update(user);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
+        }
     }
 }
