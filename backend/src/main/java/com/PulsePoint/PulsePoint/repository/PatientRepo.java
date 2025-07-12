@@ -1,4 +1,4 @@
-package com.PulsePoint.PulsePoint.Repo;
+package com.PulsePoint.PulsePoint.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.domain.Pageable;
@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-import com.PulsePoint.PulsePoint.DTO.PatientDTO;
-import com.PulsePoint.PulsePoint.Models.Patient;
+import com.PulsePoint.PulsePoint.dto.PatientDTO;
+import com.PulsePoint.PulsePoint.model.Patient;
 
 import java.util.UUID;
 

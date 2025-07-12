@@ -1,15 +1,16 @@
-package com.PulsePoint.PulsePoint.Services;
+package com.PulsePoint.PulsePoint.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class RedisService {
+    private final StringRedisTemplate redisTemplate;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    public RedisService(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     public void saveOtp(String email, String otp, long timeoutMinutes) {
         System.out.println("Saving OTP for " + email + " with OTP: " + otp);
@@ -22,5 +23,5 @@ public class RedisService {
 
     public void deleteOtp(String email) {
         redisTemplate.delete("OTP::" + email);
-    } 
+    }
 }

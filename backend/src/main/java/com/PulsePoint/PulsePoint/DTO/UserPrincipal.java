@@ -1,18 +1,15 @@
-package com.PulsePoint.PulsePoint.DTO;
+package com.PulsePoint.PulsePoint.dto;
 
-import java.util.Collection;
-import java.util.Collections;
-
+import com.PulsePoint.PulsePoint.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.PulsePoint.PulsePoint.Models.Users;
+import java.util.Collection;
+import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
-
-    private static final long serialVersionUID = 1L;
-    private Users user;
+    private final Users user;
 
     public UserPrincipal(Users user) {
         this.user = user;
@@ -20,7 +17,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getType()));
     }
 
     @Override
@@ -30,7 +27,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getUsername();
     }
 
     @Override
@@ -50,7 +47,10 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return Boolean.TRUE.equals(user.getActive());
     }
 
-}
+    public Users getUser() {
+        return user;
+    }
+} 

@@ -1,4 +1,4 @@
-package com.PulsePoint.PulsePoint.Models;
+package com.PulsePoint.PulsePoint.model;
 
 import java.sql.Date;
 import java.util.UUID;

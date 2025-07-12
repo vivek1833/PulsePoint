@@ -1,4 +1,4 @@
-package com.PulsePoint.PulsePoint.Configs;
+package com.PulsePoint.PulsePoint.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

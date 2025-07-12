@@ -1,4 +1,4 @@
-package com.PulsePoint.PulsePoint.Services;
+package com.PulsePoint.PulsePoint.service.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,10 +20,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-
     private String secretKey;
 
-    public JwtService(){
+    public JwtService() {
         secretKey = generateSecretKey();
     }
 
@@ -39,16 +38,13 @@ public class JwtService {
     }
 
     public String generateToken(String username) {
-
         Map<String, Object> claims = new HashMap<>();
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60*24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getKey(), SignatureAlgorithm.HS256).compact();
-
     }
 
     private Key getKey() {
@@ -57,7 +53,6 @@ public class JwtService {
     }
 
     public String extractUserName(String token) {
-        // extract the username from jwt token
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -71,7 +66,6 @@ public class JwtService {
                 .setSigningKey(getKey())
                 .build().parseClaimsJws(token).getBody();
     }
-
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);

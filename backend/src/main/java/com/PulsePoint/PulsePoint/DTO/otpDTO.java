@@ -1,13 +1,13 @@
-package com.PulsePoint.PulsePoint.DTO;
+package com.PulsePoint.PulsePoint.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class otpDTO {
     private String email;
     private String otp;
-}
+} 

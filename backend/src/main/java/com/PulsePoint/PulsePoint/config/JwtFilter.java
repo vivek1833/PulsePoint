@@ -1,7 +1,7 @@
-package com.PulsePoint.PulsePoint.Configs;
+package com.PulsePoint.PulsePoint.config;
 
-import com.PulsePoint.PulsePoint.Services.JwtService;
-import com.PulsePoint.PulsePoint.Services.MyUserDetailsService;
+import com.PulsePoint.PulsePoint.service.impl.JwtService;
+import com.PulsePoint.PulsePoint.service.impl.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

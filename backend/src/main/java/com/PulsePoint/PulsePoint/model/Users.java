@@ -1,10 +1,9 @@
-package com.PulsePoint.PulsePoint.Models;
+package com.PulsePoint.PulsePoint.model;
 import java.sql.Date;
 import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 

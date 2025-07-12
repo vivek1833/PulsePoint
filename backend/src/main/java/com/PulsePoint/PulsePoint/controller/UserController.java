@@ -1,6 +1,5 @@
-package com.PulsePoint.PulsePoint.Controllers;
+package com.PulsePoint.PulsePoint.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,16 +8,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.PulsePoint.PulsePoint.DTO.otpDTO;
-import com.PulsePoint.PulsePoint.Models.Users;
-import com.PulsePoint.PulsePoint.Services.UserService;
+import com.PulsePoint.PulsePoint.dto.otpDTO;
+import com.PulsePoint.PulsePoint.model.Users;
+import com.PulsePoint.PulsePoint.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Users> register(@RequestBody Users user) {
@@ -29,7 +30,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users user) {
         String response = userService.login(user);
-        return ResponseEntity.status(HttpStatus.OK).body(response); 
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/verify-otp")
@@ -62,7 +63,8 @@ public class UserController {
             Users response = userService.update(user);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user: " + e.getMessage());
         }
     }
 }

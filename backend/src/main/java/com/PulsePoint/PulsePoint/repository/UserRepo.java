@@ -1,5 +1,5 @@
-package com.PulsePoint.PulsePoint.Repo;
-import com.PulsePoint.PulsePoint.Models.Users;
+package com.PulsePoint.PulsePoint.repository;
+import com.PulsePoint.PulsePoint.model.Users;
 
 import java.util.UUID;
 
