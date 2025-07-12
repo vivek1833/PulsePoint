@@ -49,6 +49,7 @@ PulsePoint is a modern web application built with Spring Boot and React. It prov
 - JWT Authentication
 - Spring Mail
 - Redis
+- Kafka
 - Lombok
 - Maven
 
@@ -168,17 +169,9 @@ The backend is built with Spring Boot and provides:
 - PostgreSQL database integration
 - Email service integration
 - Redis integration
+- Kafka consumers
 - Spring Security for endpoint protection
 - JPA for database operations
-
-## API Documentation
-
-API documentation can be accessed at `/swagger-ui.html` when running the development server. The documentation includes:
-
-- Available endpoints
-- Request/Response formats
-- Authentication requirements
-- API versioning information
 
 ## Environment Variables
 
