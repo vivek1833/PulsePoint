@@ -23,8 +23,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and tag images via docker-compose
-        run: docker-compose build
+      - name: Build and tag images via Docker Compose
+        run: docker compose build --pull
 
       - name: Push all tagged images to Docker Hub
-        run: docker-compose push
+        run: docker compose push
