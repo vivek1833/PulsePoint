@@ -35,5 +35,3 @@ build/
 
 ### Environment Files ###
 src/main/resources/env.properties
-
-pom.xml

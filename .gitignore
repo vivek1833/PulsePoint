@@ -36,9 +36,6 @@ build/
 ### Environment Files ###
 src/main/resources/env.properties
 
-
-pom.xml
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
