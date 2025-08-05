@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setType("STAFF");
         sendOtp(user.getEmail());
         Users savedUser = repo.save(user);
-        savedUser.setUsername(user.getUsername());
+        savedUser.setUserName(user.getUserName());
         savedUser.setActive(false);
         savedUser.setIsLoggedIn(false);
         savedUser.setCreatedAt(new Date(System.currentTimeMillis()));
@@ -58,10 +58,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(Users user) {
         Authentication auth = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
         if (auth.isAuthenticated()) {
-            String token = jwtService.generateToken(user.getUsername());
-            Users loggedInUser = repo.findByUsername(user.getUsername());
+            String token = jwtService.generateToken(user.getUserName());
+            Users loggedInUser = repo.findByUserName(user.getUserName());
             loggedInUser.setIsLoggedIn(true);
             repo.save(loggedInUser);
             return token;
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         }
         if (otpDTO.getOtp().equals(redisOtp)) {
             redisService.deleteOtp(otpDTO.getEmail());
-            Users user = repo.findByUsername(otpDTO.getEmail());
+            Users user = repo.findByUserName(otpDTO.getEmail());
             user.setActive(true);
             repo.save(user);
             return "OTP verified";
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
     public Users getLoggedInUserDetails() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Users user = repo.findByUsername(username);
+        Users user = repo.findByUserName(username);
         return user;
     }
 
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
     public String logout() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        Users user = repo.findByUsername(username);
+        Users user = repo.findByUserName(username);
         user.setIsLoggedIn(false);
         repo.save(user);
         SecurityContextHolder.getContext().setAuthentication(null);
@@ -123,8 +123,8 @@ public class UserServiceImpl implements UserService {
     public Users update(Users user) {
         Users existing = repo.findById(user.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        if (user.getUsername() != null) {
-            existing.setUsername(user.getUsername());
+        if (user.getUserName() != null) {
+            existing.setUserName(user.getUserName());
         }
         if (user.getEmail() != null) {
             existing.setEmail(user.getEmail());

@@ -7,7 +7,7 @@ const register = async (
   firstName,
   lastName,
   email,
-  username,
+  userName,
   password,
   confirmPassword
 ) => {
@@ -15,16 +15,16 @@ const register = async (
     firstName,
     lastName,
     email,
-    username,
+    userName,
     password,
     confirmPassword,
   });
   return response;
 };
 
-const login = async (username, password) => {
+const login = async (userName, password) => {
   const response = await axios.post(USER_URL + "/login", {
-    username,
+    userName,
     password,
   });
   return response;
