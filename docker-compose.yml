@@ -49,11 +49,6 @@ services:
       dockerfile: Dockerfile.backend
     container_name: pulsepoint_backend
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/pulsepoint
-      DB_USERNAME: pulseuser
-      DB_PASSWORD: pulsepass
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
     ports:
@@ -79,7 +74,7 @@ services:
       dockerfile: Dockerfile.frontend
     container_name: pulsepoint_frontend
     environment:
-      - REACT_APP_API_URL=http://localhost:8080
+      - REACT_APP_API_URL=http://pulsepoint-backend:8080
     ports:
       - "80:80"
     depends_on:
