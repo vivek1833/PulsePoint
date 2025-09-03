@@ -39,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
                 "createdAt", "created_at");
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortMap.get(sortColumn));
         List<PatientDTO> patients = patientRepo.fetchUsersFromPatients(page);
-        System.out.println(patients);
+        
         return patients;
     }
 
@@ -47,7 +47,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDTO getPatientById(UUID id) {
         Pageable page = PageRequest.of(0, 1);
         PatientDTO patient = patientRepo.fetchUsersFromPatients(page).stream().filter(p -> p.getPatientId().equals(id)).findFirst().get();
-        System.out.println(patient);
+        
         return patient;
     }
 

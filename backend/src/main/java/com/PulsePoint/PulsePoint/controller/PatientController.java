@@ -29,6 +29,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @GetMapping("")
     public ResponseEntity<List<PatientDTO>> getPatients(
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
@@ -39,24 +40,28 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.OK).body(patients);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @GetMapping("/{id}")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable UUID id) {
         PatientDTO patient = patientService.getPatientById(id);
         return ResponseEntity.status(HttpStatus.OK).body(patient);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("")
     public ResponseEntity<Users> createPatient(@RequestBody PatientDTO patientDTO) {
         Users newUser = patientService.createPatient(patientDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable UUID id, @RequestBody PatientDTO patientDTO) {
         Patient updatedPatient = patientService.updatePatient(id, patientDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedPatient);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Patient> deletePatient(@PathVariable UUID id) {
         patientService.deletePatient(id);

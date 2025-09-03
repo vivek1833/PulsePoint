@@ -21,11 +21,9 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Users user = repo.findByUserName(username);
 		if (user == null) {
-			System.out.println("User 404");
 			throw new UsernameNotFoundException("User 404");
 		}
 		if (Boolean.FALSE.equals(user.getActive())) {
-			System.out.println("User not active");
 			throw new UsernameNotFoundException("User not active");
 		}
 		return new UserPrincipal(user);

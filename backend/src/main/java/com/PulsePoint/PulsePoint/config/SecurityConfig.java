@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSEcurity
 public class SecurityConfig {
 
 	@Autowired
@@ -54,7 +55,8 @@ public class SecurityConfig {
 		http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.csrf(customizer -> customizer.disable())
 				.authorizeHttpRequests(request -> request
-						.requestMatchers("/api/user/register", "/api/user/login", "/api/user/verify-otp", "/api/user/resend-otp",
+						.requestMatchers("/api/user/register", "/api/user/login", "/api/user/verify-otp",
+								"/api/user/resend-otp",
 								"/actuator/**")
 						.permitAll()
 						.anyRequest().authenticated())

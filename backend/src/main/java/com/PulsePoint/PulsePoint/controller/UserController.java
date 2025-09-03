@@ -21,42 +21,49 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/register")
     public ResponseEntity<Users> register(@RequestBody Users user) {
         Users response = userService.register(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users user) {
         String response = userService.login(user);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody otpDTO otpDTO) {
         String response = userService.verifyOtp(otpDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/resend-otp")
     public ResponseEntity<String> resendOtp(@RequestBody otpDTO otpDTO) {
         String response = userService.resendOtp(otpDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @GetMapping("/")
     public ResponseEntity<?> getLoggedInUserDetails() {
         Users response = userService.getLoggedInUserDetails();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         String response = userService.logout();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/")
     public ResponseEntity<?> update(@RequestBody Users user) {
         try {

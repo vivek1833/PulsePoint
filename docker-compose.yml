@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: pulseuser
       POSTGRES_PASSWORD: pulsepass
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

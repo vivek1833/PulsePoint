@@ -14,7 +14,7 @@ public class EmailEventConsumer {
 
     @KafkaListener(topics = Constants.EMAIL_TOPIC, groupId = "pulsepoint-group")
     public void consumeEmailEvent(String message) {
-        
+
         String[] parts = message.split("\\|\\|", 3);
         if (parts.length == 3) {
             emailService.sendEmail(parts[0], parts[1], parts[2]);

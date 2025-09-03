@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
     private final RedisService redisService;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public UserServiceImpl(UserRepo repo, AuthenticationManager authenticationManager, JwtService jwtService, EmailService emailService, RedisService redisService) {
+    public UserServiceImpl(UserRepo repo, AuthenticationManager authenticationManager, JwtService jwtService,
+            EmailService emailService, RedisService redisService) {
         this.repo = repo;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
