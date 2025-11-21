@@ -86,6 +86,7 @@ const MyProfile = () => {
         payload.confirmPassword = passwords.confirm;
       }
       const res = await updateUser(payload);
+      if (res.status !== 200) throw new Error(res.data);
       setMsg("Profile updated successfully.");
       setEditMode(false);
       setUser({ ...user, firstName: form.firstName, lastName: form.lastName });

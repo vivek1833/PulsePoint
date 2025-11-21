@@ -13,7 +13,6 @@ public class RedisService {
     }
 
     public void saveOtp(String email, String otp, long timeoutMinutes) {
-        System.out.println("Saving OTP for " + email + " with OTP: " + otp);
         redisTemplate.opsForValue().set("OTP::" + email, otp, timeoutMinutes, TimeUnit.MINUTES);
     }
 

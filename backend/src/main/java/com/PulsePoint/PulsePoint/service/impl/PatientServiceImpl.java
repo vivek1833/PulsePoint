@@ -21,6 +21,14 @@ import com.PulsePoint.PulsePoint.service.PatientService;
 public class PatientServiceImpl implements PatientService {
     private final PatientRepo patientRepo;
     private final UserRepo userRepo;
+    Map<String, String> sortMap = Map.of(
+            "firstName", "first_name",
+            "lastName", "last_name",
+            "age", "p.age",
+            "roomNo", "p.room_no",
+            "condition", "p.condition",
+            "admissionDate", "p.admission_date",
+            "createdAt", "created_at");
 
     public PatientServiceImpl(PatientRepo patientRepo, UserRepo userRepo) {
         this.patientRepo = patientRepo;
@@ -29,25 +37,18 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<PatientDTO> getPatients(Integer pageSize, Integer pageNumber, String sortColumn, String sortDirection) {
-        Map<String, String> sortMap = Map.of(
-                "firstName", "first_name",
-                "lastName", "last_name",
-                "age", "p.age",
-                "roomNo", "p.room_no",
-                "condition", "p.condition",
-                "admissionDate", "p.admission_date",
-                "createdAt", "created_at");
         Pageable page = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortMap.get(sortColumn));
         List<PatientDTO> patients = patientRepo.fetchUsersFromPatients(page);
-        
+
         return patients;
     }
 
     @Override
     public PatientDTO getPatientById(UUID id) {
         Pageable page = PageRequest.of(0, 1);
-        PatientDTO patient = patientRepo.fetchUsersFromPatients(page).stream().filter(p -> p.getPatientId().equals(id)).findFirst().get();
-        
+        PatientDTO patient = patientRepo.fetchUsersFromPatients(page).stream().filter(p -> p.getPatientId().equals(id))
+                .findFirst().get();
+
         return patient;
     }
 

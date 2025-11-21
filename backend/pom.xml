@@ -12,7 +12,7 @@
 	<artifactId>PulsePoint</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PulsePoint</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Pulse Point - A Hospital Management System</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -117,7 +117,11 @@
       		<groupId>org.springframework.kafka</groupId>
       		<artifactId>spring-kafka</artifactId>
     	</dependency>
-	
+		<dependency>
+    		<groupId>com.google.genai</groupId>
+    		<artifactId>google-genai</artifactId>
+    		<version>1.26.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -2,6 +2,7 @@ package com.PulsePoint.PulsePoint.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,28 +22,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/register")
     public ResponseEntity<Users> register(@RequestBody Users user) {
         Users response = userService.register(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Users user) {
         String response = userService.login(user);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody otpDTO otpDTO) {
         String response = userService.verifyOtp(otpDTO);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PreAuthorize("hasAnyRole('STAFF', 'PATIENT')")
     @PostMapping("/resend-otp")
     public ResponseEntity<String> resendOtp(@RequestBody otpDTO otpDTO) {
         String response = userService.resendOtp(otpDTO);
